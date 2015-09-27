@@ -18,24 +18,21 @@ using namespace std;
 	 __typeof__ (b) _b = (b); \
 	 _a > _b ? _a : _b; })
 
+int n = 0, size = 0, max_size = initialSize;
+int *A = new int[max_size];	
+
 int binary_search(int *A, int firstIndex, int lastIndex, int sum);
-void resize(int *A, int size, size_t oldSize);
+int* resize(int *A, int size, size_t oldSize);
 
 int main (int argc, char* argv[]) {
 	if (argc != 3) { cerr << "Error, invalid amount of arguments. Refer to README for details on usage, or use command --help" << endl; return -1;}
-	if (strcmp(argv[1], "--help") == 0) { cout << "Usage: ./victor_wu_C++ [input] [output]" << endl; return 0; }
-
-	int n = 0, size = 0, max_size = initialSize;
-	int *A = new int[max_size];
-	int *B = new int[max_size];
+	if (strcmp(argv[1], "--help") == 0) { cout << "Usage: ./victor_wu_C++ [input] [output]" << endl; return 0; }	
 
 	fstream myFile(argv[1], ios_base::in);
-	ofstream myFileOutput(argv[2]);
-
-	int sum = 0;
+	ofstream myFileOutput(argv[2]);	
 
 	while (myFile >> A[size++]) {
-		if (size >= max_size) resize(A, size, max_size);
+		if (size >= max_size) A = resize(A, size, max_size);
 		//Code based on Psuedo-code Wikipedia: Insertion Sort
 		for (int i = 0; i < size; i++) {
 			int j = i;
@@ -46,12 +43,9 @@ int main (int argc, char* argv[]) {
 				j--;
 			}
 
-		}
-		sum+=A[size-1];
+		}	
 	}
-	size--;
-
-	for (int i = 0; i < size; i++) B[i] = sum - A[i];
+	size--;	
 
 	// Binary search for complement
 	for (int i = 0; i < size; i++) {
@@ -82,12 +76,13 @@ int binary_search(int *A, int firstIndex, int lastIndex, int sum) {
 	return returnIndex;
 }
 
-void resize(int *A, int size, size_t oldSize) {
+int* resize(int* A, int size, size_t oldSize) {
 	oldSize *= 2;
-	int *newArray = new int[oldSize];
-	for (int i = 0; i < size; i++)
+	int *newArray = new int[oldSize]();
+	for (int i = 0; i < size-1; i++)
 		newArray[i] = A[i];
 	delete [] A;
 	A = newArray;
+	return A;
 }
 
