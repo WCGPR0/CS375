@@ -19,14 +19,15 @@ using namespace std;
 	 _a > _b ? _a : _b; })
 
 int binary_search(int *A, int firstIndex, int lastIndex, int sum);
+void resize(int *A, int size, size_t oldSize);
 
 int main (int argc, char* argv[]) {
 	if (argc != 3) { cerr << "Error, invalid amount of arguments. Refer to README for details on usage, or use command --help" << endl; return -1;}
 	if (strcmp(argv[1], "--help") == 0) { cout << "Usage: ./victor_wu_C++ [input] [output]" << endl; return 0; }
 
-	int n = 0, size = 0;
-	int *A = new int[initialSize];
-	int *B = new int[initialSize];
+	int n = 0, size = 0, max_size = initialSize;
+	int *A = new int[max_size];
+	int *B = new int[max_size];
 
 	fstream myFile(argv[1], ios_base::in);
 	ofstream myFileOutput(argv[2]);
@@ -34,6 +35,7 @@ int main (int argc, char* argv[]) {
 	int sum = 0;
 
 	while (myFile >> A[size++]) {
+		if (size >= max_size) resize(A, size, max_size);
 		//Code based on Psuedo-code Wikipedia: Insertion Sort
 		for (int i = 0; i < size; i++) {
 			int j = i;
