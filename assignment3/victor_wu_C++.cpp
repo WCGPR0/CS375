@@ -1,5 +1,5 @@
 /** Victor Wu
-    CS375 - Assignment 3 */
+    CS375 - Assignment 3*/
 
 #include <iostream>
 #include <string>
@@ -15,12 +15,11 @@ void path(int q, int r, int **P, std::string *list);
 int n = 0, size = 0, max_size = initialSize;
 
 int main (int argc, char* argv[]) {
-	if (argc == 2 && strcmp(argv[1],"--help") == 0) { std::cout << "Usage: ./victor_wu_C++ [input] [output] [size]" << std::endl; return 0; }	
-	if (argc != 4) { std::cerr << "Error, invalid amount of arguments. Refer to README for details on usage, or use command --help" << std::endl; return -1;}	
-
-	std::ifstream myFile(argv[1], std::ios_base::in); //< Input File, First Argument
-	std::ofstream myFileOutput(argv[2]); //< Output File, Second Argument
-	max_size = atoi(argv[3]); //< Size of Input File, Third Argument
+	if (argc == 2 && strcmp(argv[1],"--help") == 0) { std::cout << "Usage: ./victor_wu_C++ [arguments] [input] [output]" << std::endl << "Arguments:\n\t--floyd[N]\tShortest path from map\n\t--lcs:\tLongest Common Sequence" << std::endl; return 0; }	
+	if (argc == 5 && strcmp(argv[1], "--floyd") == 0) {
+	std::ifstream myFile(argv[3], std::ios_base::in); //< Input File, First Argument
+	std::ofstream myFileOutput(argv[4]); //< Output File, Second Argument
+	max_size = atoi(argv[2]); //< Size of Input File, Third Argument
 
 	std::string str;
 	std::string list_param1[max_size], //< Array of First Arguments
@@ -114,6 +113,12 @@ int main (int argc, char* argv[]) {
 	myFileOutput.close();
 	myFile.close();
 	return 0;
+	}
+	else if (argc == 4 && strcmp(argv[1], "--lcs") == 0) {
+
+
+	}
+	else { std::cerr << "Error, invalid amount of arguments. Refer to README for details on usage, or use command --help" << std::endl; return -1;}
 }
 
 
