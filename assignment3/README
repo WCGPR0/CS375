@@ -1,0 +1,9 @@
+----------------------------------------------------------
+	Victor Wu
+	CS 375 - Design and Analysis of Algorithms
+----------------------------------------------------------
+
+
+In the design of this program, I have decided not to implement a vector, or a dynamically resizing array, simply for simplicity.
+
+Due to this however, there is a third argument users are expected to input - the size of the input file size. It is imperative that these conditions are correct for the logic of the program to function as intended.
