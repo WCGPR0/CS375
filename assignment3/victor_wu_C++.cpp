@@ -26,7 +26,7 @@ int main (int argc, char* argv[]) {
 		//Paramter 1 - Departure
 		myFile >> str;	
 		if (ISDIGIT(str)) {std::cerr << "Invalid input file. Detected integer (" << str << ") in destination names." << std::endl;return -1;}
-		list_param2[size] = str;
+		list_param1[size] = str;
 
 		//Paramter 2 - Arrival
 		myFile >> str;	
@@ -36,19 +36,18 @@ int main (int argc, char* argv[]) {
 		//Paramter 3 - Distance
 		myFile >> str;
 		if (!ISDIGIT(str)) {std::cerr << "Invalid input file. Detected non-integer (" << str << ") in distances." << std::endl; return -1;}
-		list_param1[size] = stoi(str); 
+		list_param3[size] = stoi(str); 
 
 		size++;
 		
 	}	
 
 	int **P = new int*[max_size];
-	for (int i = 0; i < max_size; ++i) {
-		P[i] = new int[max_size]();
-	}
 	int **D = new int*[max_size];
 	for (int i = 0; i < max_size; ++i) {
-		D[i] = new int[max_size]{-1};			
+		P[i] = new int[max_size]();
+		D[i] = new int[max_size];
+		std::fill_n(D[i], max_size, -1);	
 	}	
 	
 	//Construct int-based Table	
@@ -58,24 +57,43 @@ int main (int argc, char* argv[]) {
 		int index = -1;
 		for (int j = 0; j < tempSize; ++j) if (list_param1[i].compare(temp[j]) == 0) index = j;
 		if (index == -1) {
-			index = tempSize;
-			temp[++tempSize] = list_param1[i];
+			index = ++tempSize;
+			temp[tempSize] = list_param1[i];
 		}
 		int _index = -1;
 		for (int j = 0; j < tempSize; ++j) if (list_param2[i].compare(temp[j]) == 0) _index = j;
 		if (_index == -1) {
-			_index = tempSize;
-			temp[++tempSize] = list_param2[i];
+			_index = ++tempSize;
+			temp[tempSize] = list_param2[i];
 		}
 		D[index][_index] = list_param3[++count];	
 	}
 
-
-
+	
 	for (int i = 0; i < max_size; ++i)
 		for (int j = 0; j < max_size; ++j)
-			std::cout << D[i][j] << std::endl;
+			std::cout << D[i][j] << ", ";
+		std::cout << std::endl;
 
+
+		for (int i = 0; i < max_size; ++i) {
+			for (int j = 0; j < max_size; ++j) {
+				for (int k = 0; k < max_size; ++k) {
+					if ((D[j][k] > (D[i][i] + D[k][j])) && (D[j][i] != -1) && D[k][k] != -1) {
+						D[j][k] = D[i][i] + D[k][j];
+						P[j][k] = i;
+					}
+				}
+			}
+		}
+
+	for (int i = 0; i < max_size; ++i) {
+		delete P[i];
+		delete D[i];
+	}
+	delete P;
+	delete D;
+	
 	myFileOutput.close();
 	myFile.close();
 	return 0;
