@@ -23,25 +23,28 @@
 
 using namespace std;
 
-Point* resize(Point *A, int size, size_t& oldSize);
-int smallest(Point p[], int n);
+struct Point {
+   int x;
+   int y;
+   int z;
+};
+
+
+Point* resize(Point *A, int size, int& oldSize);
+int smallest(Point* p, int n);
 
 int size = 0, max_size = initialSize;
 int *A = new int[max_size];
 
 
-struct Point {
-   int x = 0, y = 0,  z = 0;
-};
-
 int main(int argc, char* argv[]) {
 	if (argc != 3) { cerr << "Error, invalid amount of arguments. Refer to README for details on usage, or use command --help" << endl; return -1;}
-	if (strcmp(argv[1], "--help") == 0) { cout << "Usage: ./victor_wu_C++ [input] [output]" << endl; return 0; }
+	if (argv[1] == string("--help")) { cout << "Usage: ./victor_wu_C++ [input] [output]" << endl; return 0; }
 
 	fstream myFile(argv[1], ios_base::in);
 	ofstream myFileOutput(argv[2]);
 	
-    Point *p = new Point[max_size];
+    Point *p = new struct Point[max_size];
 
     string line;
 	//Reading the input file
@@ -75,30 +78,29 @@ int main(int argc, char* argv[]) {
 		}
 		}
 	  }
-
-		cout << smallest(p, size);
+		int* test;
+		 smallest(p, test);
 
 	return 0;
 }
 
-
-int smallest(Point p[], int n) {
-
-   int d = min(smallest(p, n/2), smallest(p+n, n/2));
-
-   int strip[size];
+int smallest(Point *p, int n) {
+cout <<"here"<< endl;
+   //int d = min(smallest(p, n/2), smallest(p+n, n/2));
+int d = 0;
+   int strip[n];
    int j = 0;
-   for (int i = 0, j = 0; i < size; ++i)
+   for (int i = 0, j = 0; i < n; ++i)
 	  if (abs(strip[i]) - p[size/2].x < d)
 		 strip[j] = p[i].x; ++j;
    int c = 0;
-   for (int i = 0; i < size; ++i)
+   for (int i = 0; i < n; ++i)
 	  for (j = i+1; j < size && (strip[j] - strip[i]) < d; ++j)
 		 c = min(strip[i], strip[j]);
   return min(d, c);
 }
 
-Point* resize(Point* A, int size, size_t& oldSize) {
+Point* resize(Point* A, int size, int& oldSize) {
 	oldSize *= 2;
 	Point *newArray = new Point[oldSize]();
 	for (int i = 0; i < size-1; i++) {
