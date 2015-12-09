@@ -1,10 +1,11 @@
 /** Victor Wu
-    CS375 - Assignment 3*/
+    CS375 - Assignment 4*/
 
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <cstring>
+#include <list>
 
 #define initialSize 50
 #define ISDIGIT(s) !s.empty() && s.find_first_not_of("0123456789") == std::string::npos
@@ -14,9 +15,30 @@ void path(int q, int r, int **P, std::string *list);
 
 int n = 0, size = 0, max_size = initialSize;
 
+
+// Graphs
+class Node {
+	int v, w;
+public:
+	AdjListNode(int v, int w) { this->v = v; this->w = w; }
+	int getV() { return v; }
+	int getWeight() { return w; }
+
+};
+
+class Graph {
+	int v; //< Number of Vertices
+	list<Node> *nodeList;
+	void topologicalSort(int v, bool visited[], stack<int> &Stack);
+
+
+}
+
+
+
 int main (int argc, char* argv[]) {
-	if (argc == 2 && strcmp(argv[1],"--help") == 0) { std::cout << "Usage: ./victor_wu_C++ [arguments] [input] [output]" << std::endl << "Arguments:\n\t--floyd[N]\tShortest path from map\n\t--lcs:\tLongest Common Sequence" << std::endl; return 0; }	
-	if (argc == 5 && strcmp(argv[1], "--floyd") == 0) {
+	if (argc == 2 && strcmp(argv[1],"--help") == 0) { std::cout << "Usage: ./victor_wu_C++ [arguments] [input] [output]" << std::endl << "Arguments:\n\t--A[N]\tMinimum Number of semesters necessary to complete the cirriculum\n\t--B:\tExists cycle within a graph" << std::endl; return 0; }	
+	if (argc == 5 && strcmp(argv[1], "--A") == 0) {
 	std::ifstream myFile(argv[3], std::ios_base::in); //< Input File, First Argument
 	std::ofstream myFileOutput(argv[4]); //< Output File, Second Argument
 	max_size = atoi(argv[2]); //< Size of Input File, Third Argument
@@ -27,7 +49,17 @@ int main (int argc, char* argv[]) {
 	int list_param3[max_size]; //< Array of Third Arguments
 	while (size < max_size) {
 		//Paramter 1 - Departure
-		myFile >> str;	
+		myFile >> str;
+		if (strcmp(str, "requires")) {
+
+
+		}
+		else if (strcmp(str, "and")) {
+
+		}
+		else {
+
+		}
 		if (ISDIGIT(str)) {std::cerr << "Invalid input file. Detected integer (" << str << ") in destination names." << std::endl;return -1;}
 		list_param1[size] = str;
 
@@ -128,7 +160,7 @@ int main (int argc, char* argv[]) {
 	myFile.close();
 	return 0;
 	}
-	else if (argc == 4 && strcmp(argv[1], "--lcs") == 0) {
+	else if (argc == 4 && strcmp(argv[1], "--B") == 0) {
 
 
 	}
