@@ -1,5 +1,5 @@
 /** Victor Wu
-  CS375 - Assignment 4*/
+  CS375 - Assignment 5*/
 
 #include <iostream>
 #include <string>
@@ -86,14 +86,15 @@ std::vector<edge> generateMST(std::vector<edge> &edges) {
 //! \return the position of the vertex found or -1 if not found
 int traverseTree(std::vector<edge> &edges, std::vector<int> &vertices) {
 	for (std::vector<edge>::iterator itEdge = edges.begin(); itEdge != edges.end(); ++itEdge) {
-		for (std::vector<int>::iterator itInt = vertices.begin(); itInt != vertices.end(); ++itInt) {
-			if ((itEdge->v1 == *itInt) || (itEdge->v2 == *itInt)) {	
+		for (int i = 0; i < vertices.size(); ++i) {
+	//	for (std::vector<int>::iterator itInt = vertices.begin(); itInt != vertices.end(); ++itInt) {
+			if ((itEdge->v1 == vertices[i]) || (itEdge->v2 == vertices[i])) {	
 				if (std::find(vertices.begin(), vertices.end(), itEdge->v1) == vertices.end()) vertices.push_back(itEdge->v1);
 				if (std::find(vertices.begin(), vertices.end(), itEdge->v2) == vertices.end()) vertices.push_back(itEdge->v2);
 				edges.erase(itEdge);	
-for (std::vector<int>::iterator itInt = vertices.begin(); itInt != vertices.end(); ++itInt) std::cout << *itInt << "\t";
-std::cout<<std::endl;
-				return *itInt;	
+//for (std::vector<int>::iterator itInt = vertices.begin(); itInt != vertices.end(); ++itInt) std::cout << *itInt << "\t";
+//std::cout<<std::endl;
+				return vertices[i];	
 			}	
 		}	
 	}
