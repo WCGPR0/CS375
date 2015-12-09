@@ -7,6 +7,8 @@
 #include <cstring>
 #include <algorithm>
 #include <vector>
+#include <queue>
+#include <list>
 
 struct edge {
 	int v1, v2, value;
@@ -37,22 +39,51 @@ void addEdge(std::vector<edge> &myTree, int v1, int v2, int value) {
 //! \param The starting source
 //! \param The ending destination
 //! \return the path from starting to end
-bool bfs(vector<edge> myGraph, int source, int sink) {
-	vector<int> visited;
+bool bfs(std::vector<edge> myGraph, int source, int sink) {
+	std::list<bool> visited(myGraph.size());
+	std::vector<edge> path(myGraph.size());
+	std::queue<int> q;
+	q.push(source);
+	visited[source] = true;
+	
+	while (!q.empty()) {
+		int u = q.front();
+		q.pop();
+		for (std::vector<edge>::iterator it = myGraph.begin(); it != myGraph.end(); ++it) {
+			int i = std::distance(myGraph.begin(), it);
+			if (visited[i] == false) {
+				q.push(i);
+				path[i] = it->value;
+				visited[i] = true;
+			}
+
+		}
+
+	}	
+	return (visited[sink] == true);	
 } 
 
 //! \param The tree
 //! \param The starting source
 //! \param The ending destination
 //! \return the maximum possible flow
-int letUsFordFulkThisShit(vector<edge> myGraph, int source, int sink) {
-	vector<edge> resGraph = myGraph;
-	
+int letUsFordFulkThisShit(std::vector<edge> myGraph, int source, int sink) {
+	std::vector<edge> resGraph = myGraph;
+	std::vector<edge> path(myGraph.size());
 	int max_flow = 0;
-	while (bfs(resGraph, source, sink, parent) {
+	while (bfs(resGraph, source, sink)) {
+		int path_flow = (unsigned int) ~0 >> 1;
+		for (std::vector<edge>::iterator rt = resGraph.begin(); rt != resGraph.end(); ++rt)
+			path_flow = path_flow <= rt->value ? path_flow : rt->value;
+		for (std::vector<edge>::iterator rt = resGraph.begin(); rt != resGraph.end(); ++rt) {
+			rt -= path_flow;
+			rt += path_flow;
+		}
 
+		max_flow += path_flow;
 
 	}
+		return max_flow;
 
 }
 
