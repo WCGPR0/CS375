@@ -1,5 +1,5 @@
 /** Victor Wu
-    CS375 - Assignment 4*/
+  CS375 - Assignment 4*/
 
 #include <iostream>
 #include <string>
@@ -12,10 +12,10 @@ struct edge {
 	int v1, v2, value;
 
 	edge& operator =(edge e) {
-	v1 = e.v1;
-	v2 = e.v2;
-	value = e.value;
-	return *this;
+		v1 = e.v1;
+		v2 = e.v2;
+		value = e.value;
+		return *this;
 	}
 };
 
@@ -34,7 +34,7 @@ inline void addEdge(std::vector<edge> &myTree, int v1, int v2, int value) {
 
 //! \param The edge to be found
 //! \return the set the set is found in
- int find_vertex(std::vector<std::vector<int> > &sets, int vertex) {
+int find_vertex(std::vector<std::vector<int> > &sets, int vertex) {
 	std::vector<std::vector<int> >::iterator row;
 	std::vector<int>::iterator col;
 	for (row = sets.begin(); row != sets.end(); ++row) {
@@ -43,14 +43,14 @@ inline void addEdge(std::vector<edge> &myTree, int v1, int v2, int value) {
 				return std::distance(sets.begin(), row);
 		}
 	}
-return -1;
+	return -1;
 }
 
 
 //! \param A graph of edges
 //! \return the MST constructed from the edges
- std::vector<edge> generateMST(std::vector<edge> &edges) {
-		
+std::vector<edge> generateMST(std::vector<edge> &edges) {
+
 	std::vector<edge> MST;
 	std::vector<std::vector<int> > sets(edges.size());	
 
@@ -77,63 +77,69 @@ return -1;
 			sets[v1].insert(sets[v1].end(), sets[v2].begin(), sets[v2].end()); //< Merges subset v2 with subset v1	
 		}
 	}
-return MST;
+	return MST;
 }
 
 
-int traverseTree(std::vector<edge> &edges, std::vector<int> vertices) {
-	for (std::vector<edge>::iterator it = edges.begin(); it != edges.end(); ++it) {
-		for (std::vector<int>::iterator it_ = vertices.begin(); it_ != vertices.end(); ++it) {
-			if (it->v1 == *it_ || it->v2 == *it_) {
-				if (std::find(vertices.begin(), vertices.end(), it->v1) == vertices.end()) vertices.push_back(it->v1);
-				if (std::find(vertices.begin(), vertices.end(), it->v2) == vertices.end()) vertices.push_back(it->v2);
-				edges.erase(it);
-			traverseTree(edges, vertices);	
-		}
-		std::cout << "vertices\t" << *it_ << std::endl; 
+//! \param A graph of edges
+//! \param The list of vertices to search
+//! \return the position of the vertex found or -1 if not found
+int traverseTree(std::vector<edge> &edges, std::vector<int> &vertices) {
+	for (std::vector<edge>::iterator itEdge = edges.begin(); itEdge != edges.end(); ++itEdge) {
+		for (std::vector<int>::iterator itInt = vertices.begin(); itInt != vertices.end(); ++itInt) {
+			if ((itEdge->v1 == *itInt) || (itEdge->v2 == *itInt)) {	
+				if (std::find(vertices.begin(), vertices.end(), itEdge->v1) == vertices.end()) vertices.push_back(itEdge->v1);
+				if (std::find(vertices.begin(), vertices.end(), itEdge->v2) == vertices.end()) vertices.push_back(itEdge->v2);
+				edges.erase(itEdge);	
+for (std::vector<int>::iterator itInt = vertices.begin(); itInt != vertices.end(); ++itInt) std::cout << *itInt << "\t";
+std::cout<<std::endl;
+				return *itInt;	
+			}	
 		}	
 	}
-return -1;
+	return -1;
 
 }
 
 int main (int argc, char* argv[]) {
 	if (argc >= 2) { if (strcmp(argv[1],"--help") == 0) { std::cout << "Usage: ./victor_wu_C++ [input] [output]" << std::endl << "\tinput" << std::endl; return 0; }	
-	else if (argc <= 3) {
-	std::ifstream myFile(argv[1], std::ios_base::in); //< Input File, First Argument
-	std::ofstream myFileOutput(argv[2]); //< Output File, Second Argument	
-	std::string str;		
-	
-	std::vector<edge> edges, MST;
+		else if (argc <= 3) {
+			std::ifstream myFile(argv[1], std::ios_base::in); //< Input File, First Argument
+			std::ofstream myFileOutput(argv[2]); //< Output File, Second Argument	
+			std::string str;		
 
-		//Reads the file
-		int v1, v2, value;
-		while (myFile >> v1 >> v2 >> value) {
-			addEdge(edges, v1, v2, value);
+			std::vector<edge> edges, MST;
+
+			//Reads the file
+			int v1, v2, value;
+			while (myFile >> v1 >> v2 >> value) {
+				addEdge(edges, v1, v2, value);
+			}
+			MST = generateMST(edges);
+
+			/*		if (true) {
+					for (unsigned int i = 0; i < MST.size(); ++i)
+					std::cout << MST[i].v1 << "\t" << MST[i].v2 << "\t" << MST[i].value << std::endl;
+					}*/
+			/*		if (true) {
+					for (unsigned int i = 0; i < edges.size(); ++i)
+					std::cout << edges[i].v1 << "\t" << edges[i].v2 << "\t" << edges[i].value << std::endl;
+					}*/
+
+			//Traverse MST, Pop off MST from edges
+			std::vector<int> emptyVertex {MST[0].v1};
+			while(!MST.empty()) {		
+				int x = traverseTree(MST, emptyVertex);
+				if (x >= 0) std::cout << "v" << x << std::endl;
+				else std::cout << "New group" << std::endl;	
+			}
+
+
+			myFileOutput.close();
+			myFile.close();
 		}
-		MST = generateMST(edges);
-			
-		if (true) {
-		for (unsigned int i = 0; i < MST.size(); ++i)
-			std::cout << MST[i].v1 << "\t" << MST[i].v2 << "\t" << MST[i].value << std::endl;
-		}
-/*		if (true) {
-		for (unsigned int i = 0; i < edges.size(); ++i)
-			std::cout << edges[i].v1 << "\t" << edges[i].v2 << "\t" << edges[i].value << std::endl;
-		}*/
 
-		//Traverse MST, Pop off MST from edges
-//		while(!MST.empty()) {		
-		std::vector<int> emptyVertex {MST[0].v1};
-			traverseTree(MST, emptyVertex);	
-//		}
-
-
-		myFileOutput.close();
-		myFile.close();
-	}
-	
-	return 0;
+		return 0;
 	}
 	std::cerr << "Error, invalid amount of arguments. Refer to README for details on usage, or use command --help" << std::endl; return -1;
 }
