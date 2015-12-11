@@ -42,30 +42,29 @@ void addEdge(std::vector<edge> &myTree, int v1, int v2, int value) {
 //! \param The starting source
 //! \param The ending destination
 //! \return the path from starting to end
-bool bfs(std::vector<edge> myGraph, int source, int sink, std::vector<edge> &path) {
+bool bfs(std::vector<edge> myGraph, int source, int sink, std::vector<int> &path) {
 	std::unordered_map<int, bool> visited;	
-	visited[source] = true;
 	std::queue<int> q;
 	q.push(source);
+	visited[source] = true;
 	while (!q.empty()) {
 		int u = q.front();
 			q.pop();
-
-		for (std::vector<edge>::iterator it = myGraph.begin(); it != myGraph.end(); ++it) {
-			int i = std::distance(myGraph.begin(), it);
+		for (std::vector<edge>::iterator it = myGraph.begin(); it != myGraph.end(); ++it) {	
 //if (DEBUG) { for(auto it = visited.begin(); it != visited.end(); ++ it) std::cout << it->first << "," << it->second << "\t";std::cout << std::endl;}
-if (DEBUG) { std::cout << "u: " << u << "\t" << "it->v1: " << it->v1 << std::endl; }	
-			if ((u == it->v1) && (visited[i] != true)) {	
-				path.push_back( *it );
-				visited[i] = true;
-				q.push(it->v2);
-				it = myGraph.begin();
+if (DEBUG) { std::cout << "u: " << u << "\t" << "it->v1: " << it->v1 << "\tvisited[u]: " << visited[u] << std::endl; }	
+			if ((u == it->v1) && (visited[it->v2] != true)) {	
+if (DEBUG) std::cout << "ADDING " << u << std::endl;
+				path.push_back( it->v2 );
+				visited[u] = true;
+				q.push(it->v2);	
 			}
 
-		}
+		}	
 	}
-if (DEBUG) std::cout << visited[sink] << std::endl;
-	return (visited[sink] == true);	
+//delete[] visited;
+if (DEBUG) std::cout<< "\t" << visited[sink] << std::endl;
+	return (visited[sink-1] == true);	
 }
 
 
@@ -100,18 +99,18 @@ int main (int argc, char* argv[]) {
 			//Ford Fulkerson Algorithm
 			std::vector<edge> resGraph = myTree;	
 			int max_flow = 0;
-			std::vector<edge> path(resGraph.size());
+			std::vector<int> path;
 
 			int source = 0;
 			int sink = 5;
 
 			while (bfs(resGraph, source, sink, path)) {
 				int path_flow = (unsigned int) ~0 >> 1;
-				for (std::vector<edge>::iterator rt = resGraph.begin(); rt != resGraph.end(); ++rt)
-					path_flow = path_flow <= rt->value ? path_flow : rt->value;
-				for (std::vector<edge>::iterator rt = resGraph.begin(); rt != resGraph.end(); ++rt) {
-					rt -= path_flow;
-					rt += path_flow;
+				for (std::vector<int>::iterator rt = path.begin(); rt != path.end(); ++rt)
+					path_flow = path_flow < *rt ? path_flow : *rt;
+				for (std::vector<int>::iterator rt = path.begin(); rt != path.end(); ++rt) {	
+					resGraph[*rt].value -= path_flow;
+					if (resGraph[*rt].value <= 0) resGraph.erase(*rt);	
 				}
 
 				max_flow += path_flow;
@@ -119,7 +118,7 @@ int main (int argc, char* argv[]) {
 			}	
 
 			std::cout << "The max possible flow is: " << max_flow << std::endl;
-
+if (DEBUG) for (auto it = path.begin(); it != path.end(); ++it) std::cout << *it << std::endl; 
 
 			myFileOutput.close();
 			myFile.close();
