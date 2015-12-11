@@ -1,0 +1,43 @@
+==31789== Syscall param open(filename) points to unaddressable byte(s)
+==31789==    at 0x569D780: __open_nocancel (syscall-template.S:82)
+==31789==    by 0x5640790: _IO_file_open (fileops.c:232)
+==31789==    by 0x56408FA: _IO_file_fopen@@GLIBC_2.2.5 (fileops.c:336)
+==31789==    by 0x56354D5: __fopen_internal (iofopen.c:93)
+==31789==    by 0x4EAF1BE: std::__basic_file<char>::open(char const*, std::_Ios_Openmode, int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.17)
+==31789==    by 0x4EE7FC7: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.17)
+==31789==    by 0x4EE9582: std::basic_ofstream<char, std::char_traits<char> >::basic_ofstream(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.17)
+==31789==    by 0x4017C5: main (victor_wu_C++.cpp:87)
+==31789==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==31789== 
+==31789== Invalid read of size 4
+==31789==    at 0x401995: main (victor_wu_C++.cpp:117)
+==31789==  Address 0x595b8c0 is 8 bytes after a block of size 120 alloc'd
+==31789==    at 0x4C286E7: operator new(unsigned long) (vg_replace_malloc.c:287)
+==31789==    by 0x404E84: __gnu_cxx::new_allocator<edge>::allocate(unsigned long, void const*) (new_allocator.h:94)
+==31789==    by 0x403F48: std::_Vector_base<edge, std::allocator<edge> >::_M_allocate(unsigned long) (in /import/linux/home/vwu4/CS375/Final Presentation/submission)
+==31789==    by 0x404C0E: std::_Vector_base<edge, std::allocator<edge> >::_M_create_storage(unsigned long) (stl_vector.h:182)
+==31789==    by 0x403C4A: std::_Vector_base<edge, std::allocator<edge> >::_Vector_base(unsigned long, std::allocator<edge> const&) (stl_vector.h:137)
+==31789==    by 0x402F14: std::vector<edge, std::allocator<edge> >::vector(std::vector<edge, std::allocator<edge> > const&) (stl_vector.h:309)
+==31789==    by 0x401878: main (victor_wu_C++.cpp:102)
+==31789== 
+==31789== Invalid write of size 4
+==31789==    at 0x40199B: main (victor_wu_C++.cpp:117)
+==31789==  Address 0x595b8c0 is 8 bytes after a block of size 120 alloc'd
+==31789==    at 0x4C286E7: operator new(unsigned long) (vg_replace_malloc.c:287)
+==31789==    by 0x404E84: __gnu_cxx::new_allocator<edge>::allocate(unsigned long, void const*) (new_allocator.h:94)
+==31789==    by 0x403F48: std::_Vector_base<edge, std::allocator<edge> >::_M_allocate(unsigned long) (in /import/linux/home/vwu4/CS375/Final Presentation/submission)
+==31789==    by 0x404C0E: std::_Vector_base<edge, std::allocator<edge> >::_M_create_storage(unsigned long) (stl_vector.h:182)
+==31789==    by 0x403C4A: std::_Vector_base<edge, std::allocator<edge> >::_Vector_base(unsigned long, std::allocator<edge> const&) (stl_vector.h:137)
+==31789==    by 0x402F14: std::vector<edge, std::allocator<edge> >::vector(std::vector<edge, std::allocator<edge> > const&) (stl_vector.h:309)
+==31789==    by 0x401878: main (victor_wu_C++.cpp:102)
+==31789== 
+==31789== Invalid read of size 4
+==31789==    at 0x40199E: main (victor_wu_C++.cpp:117)
+==31789==  Address 0x595b8c0 is 8 bytes after a block of size 120 alloc'd
+==31789==    at 0x4C286E7: operator new(unsigned long) (vg_replace_malloc.c:287)
+==31789==    by 0x404E84: __gnu_cxx::new_allocator<edge>::allocate(unsigned long, void const*) (new_allocator.h:94)
+==31789==    by 0x403F48: std::_Vector_base<edge, std::allocator<edge> >::_M_allocate(unsigned long) (in /import/linux/home/vwu4/CS375/Final Presentation/submission)
+==31789==    by 0x404C0E: std::_Vector_base<edge, std::allocator<edge> >::_M_create_storage(unsigned long) (stl_vector.h:182)
+==31789==    by 0x403C4A: std::_Vector_base<edge, std::allocator<edge> >::_Vector_base(unsigned long, std::allocator<edge> const&) (stl_vector.h:137)
+==31789==    by 0x402F14: std::vector<edge, std::allocator<edge> >::vector(std::vector<edge, std::allocator<edge> > const&) (stl_vector.h:309)
+==31789==    by 0x401878: main (victor_wu_C++.cpp:102)

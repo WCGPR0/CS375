@@ -114,11 +114,11 @@ int main (int argc, char* argv[]) {
 					std::vector<edge>::iterator it = std::find_if(resGraph.begin(), resGraph.end(), [rt](const edge& e1)->bool
 						{  return (e1.v1 == rt->v1) && (e1.v2 == rt->v2) && (e1.value == rt->value); }
 					);
+				//TODO: Add Edges in reverse direction
 					if ((it->value -= path_flow) <= 0) resGraph.erase(it);
 				}
 
 				max_flow += path_flow;
-
 			}	
 
 			std::cout << "The max possible flow is: " << max_flow << std::endl;

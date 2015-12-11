@@ -4,7 +4,7 @@ LD_FLAGS =
 
 SOURCES  = victor_wu_C++.cpp
 OBJECTS  = $(SOURCES:.cpp=.o)
-EXE      = submission
+EXE      = victor_wu_C++
 
 all: $(SOURCES) $(EXE)
 
