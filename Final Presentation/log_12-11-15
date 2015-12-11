@@ -14,7 +14,7 @@
 ==31789==  Address 0x595b8c0 is 8 bytes after a block of size 120 alloc'd
 ==31789==    at 0x4C286E7: operator new(unsigned long) (vg_replace_malloc.c:287)
 ==31789==    by 0x404E84: __gnu_cxx::new_allocator<edge>::allocate(unsigned long, void const*) (new_allocator.h:94)
-==31789==    by 0x403F48: std::_Vector_base<edge, std::allocator<edge> >::_M_allocate(unsigned long) (in /import/linux/home/vwu4/CS375/Final Presentation/submission)
+==31789==    by 0x403F48: std::_Vector_base<edge, std::allocator<edge> >::_M_allocate(unsigned long) 
 ==31789==    by 0x404C0E: std::_Vector_base<edge, std::allocator<edge> >::_M_create_storage(unsigned long) (stl_vector.h:182)
 ==31789==    by 0x403C4A: std::_Vector_base<edge, std::allocator<edge> >::_Vector_base(unsigned long, std::allocator<edge> const&) (stl_vector.h:137)
 ==31789==    by 0x402F14: std::vector<edge, std::allocator<edge> >::vector(std::vector<edge, std::allocator<edge> > const&) (stl_vector.h:309)
@@ -25,7 +25,7 @@
 ==31789==  Address 0x595b8c0 is 8 bytes after a block of size 120 alloc'd
 ==31789==    at 0x4C286E7: operator new(unsigned long) (vg_replace_malloc.c:287)
 ==31789==    by 0x404E84: __gnu_cxx::new_allocator<edge>::allocate(unsigned long, void const*) (new_allocator.h:94)
-==31789==    by 0x403F48: std::_Vector_base<edge, std::allocator<edge> >::_M_allocate(unsigned long) (in /import/linux/home/vwu4/CS375/Final Presentation/submission)
+==31789==    by 0x403F48: std::_Vector_base<edge, std::allocator<edge> >::_M_allocate(unsigned long)
 ==31789==    by 0x404C0E: std::_Vector_base<edge, std::allocator<edge> >::_M_create_storage(unsigned long) (stl_vector.h:182)
 ==31789==    by 0x403C4A: std::_Vector_base<edge, std::allocator<edge> >::_Vector_base(unsigned long, std::allocator<edge> const&) (stl_vector.h:137)
 ==31789==    by 0x402F14: std::vector<edge, std::allocator<edge> >::vector(std::vector<edge, std::allocator<edge> > const&) (stl_vector.h:309)
@@ -36,7 +36,7 @@
 ==31789==  Address 0x595b8c0 is 8 bytes after a block of size 120 alloc'd
 ==31789==    at 0x4C286E7: operator new(unsigned long) (vg_replace_malloc.c:287)
 ==31789==    by 0x404E84: __gnu_cxx::new_allocator<edge>::allocate(unsigned long, void const*) (new_allocator.h:94)
-==31789==    by 0x403F48: std::_Vector_base<edge, std::allocator<edge> >::_M_allocate(unsigned long) (in /import/linux/home/vwu4/CS375/Final Presentation/submission)
+==31789==    by 0x403F48: std::_Vector_base<edge, std::allocator<edge> >::_M_allocate(unsigned long)
 ==31789==    by 0x404C0E: std::_Vector_base<edge, std::allocator<edge> >::_M_create_storage(unsigned long) (stl_vector.h:182)
 ==31789==    by 0x403C4A: std::_Vector_base<edge, std::allocator<edge> >::_Vector_base(unsigned long, std::allocator<edge> const&) (stl_vector.h:137)
 ==31789==    by 0x402F14: std::vector<edge, std::allocator<edge> >::vector(std::vector<edge, std::allocator<edge> > const&) (stl_vector.h:309)
